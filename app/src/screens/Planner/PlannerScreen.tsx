@@ -1,5 +1,11 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
+import GreetingHeader from "../../components/GreetingHeader";
+import ProgressCard from "../../components/cards/ProgressCard";
+import TaskCard from "../../components/cards/TaskCard";
+import StatCard from "../../components/cards/StatCard";
+import FloatingButton from "../../components/buttons/FloatingButton";
+
 import AppText from "../../components/common/AppText";
 import { Colors } from "../../theme/colors";
 
@@ -26,99 +32,47 @@ const tasks = [
 
 export default function PlannerScreen() {
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.content}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* Header */}
-      <View style={styles.header}>
-        <AppText variant="h1">📚 Study Planner</AppText>
-
-        <AppText
-          variant="body"
-          style={styles.subtitle}
-        >
-          Stay organized and achieve your daily goals.
-        </AppText>
-      </View>
-
-      {/* Progress Card */}
-      <View style={styles.progressCard}>
-        <AppText variant="title">
-          Today's Progress
-        </AppText>
-
-        <AppText
-          variant="h2"
-          style={styles.progressText}
-        >
-          3 / 8 Tasks
-        </AppText>
-
-        <AppText
-          variant="caption"
-          style={styles.progressCaption}
-        >
-          Keep going! You're doing great.
-        </AppText>
-
-        <View style={styles.progressBar}>
-          <View style={styles.progressFill} />
-        </View>
-      </View>
-
-      {/* Tasks */}
-      <AppText
-        variant="title"
-        style={styles.sectionTitle}
+    <>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
       >
-        Today's Tasks
-      </AppText>
+        {/* Greeting */}
+        <GreetingHeader />
 
-      {tasks.map((task) => (
-        <View
-          key={task.id}
-          style={styles.taskCard}
-        >
-          <View style={styles.taskRow}>
-            <View
-              style={[
-                styles.status,
-                {
-                  backgroundColor: task.completed
-                    ? Colors.success
-                    : Colors.border,
-                },
-              ]}
-            />
+        {/* Statistics */}
+        <View style={styles.statsRow}>
+          <StatCard title="🔥 Streak" value="7 Days" />
 
-            <View style={{ flex: 1 }}>
-              <AppText variant="body">
-                {task.title}
-              </AppText>
-
-              <AppText
-                variant="caption"
-                style={styles.priority}
-              >
-                Priority: {task.priority}
-              </AppText>
-            </View>
-          </View>
+          <StatCard title="⏱ Focus" value="12 hrs" />
         </View>
-      ))}
 
-      {/* Floating Button */}
-      <View style={styles.fab}>
-        <AppText
-          variant="h2"
-          style={styles.fabText}
-        >
-          +
+        {/* Progress */}
+        <ProgressCard completed={3} total={8} />
+
+        {/* Tasks */}
+        <AppText variant="title" style={styles.sectionTitle}>
+          Today's Tasks
         </AppText>
-      </View>
-    </ScrollView>
+
+        {tasks.map((task) => (
+          <TaskCard
+            key={task.id}
+            title={task.title}
+            priority={task.priority}
+            completed={task.completed}
+          />
+        ))}
+      </ScrollView>
+
+      {/* Floating Add Button */}
+      <FloatingButton
+        onPress={() => {
+          console.log("Add Task");
+        }}
+      />
+    </>
   );
 }
 
@@ -133,91 +87,12 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
   },
 
-  header: {
+  statsRow: {
+    flexDirection: "row",
     marginBottom: 24,
-  },
-
-  subtitle: {
-    color: Colors.textLight,
-    marginTop: 6,
-  },
-
-  progressCard: {
-    backgroundColor: Colors.cardBlue,
-    padding: 20,
-    borderRadius: 18,
-    marginBottom: 24,
-  },
-
-  progressText: {
-    color: Colors.primary,
-    marginTop: 10,
-  },
-
-  progressCaption: {
-    color: Colors.textLight,
-    marginTop: 4,
-  },
-
-  progressBar: {
-    marginTop: 16,
-    width: "100%",
-    height: 10,
-    backgroundColor: Colors.border,
-    borderRadius: 20,
-    overflow: "hidden",
-  },
-
-  progressFill: {
-    width: "38%",
-    height: "100%",
-    backgroundColor: Colors.primary,
   },
 
   sectionTitle: {
     marginBottom: 12,
-  },
-
-  taskCard: {
-    backgroundColor: Colors.surface,
-    borderRadius: 16,
-    padding: 18,
-    marginBottom: 14,
-    borderWidth: 1,
-    borderColor: Colors.border,
-  },
-
-  taskRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
-  status: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    marginRight: 14,
-  },
-
-  priority: {
-    color: Colors.textLight,
-    marginTop: 4,
-  },
-
-  fab: {
-    position: "absolute",
-    right: 24,
-    bottom: 30,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: Colors.primary,
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 5,
-  },
-
-  fabText: {
-    color: Colors.white,
   },
 });
