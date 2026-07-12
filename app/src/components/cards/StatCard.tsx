@@ -1,51 +1,47 @@
 import { View, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
-import AppCard from "./AppCard";
 import AppText from "../common/AppText";
-
 import { Colors } from "../../theme/colors";
-import { Spacing } from "../../theme/spacing";
 
-interface Props {
-  icon: keyof typeof Ionicons.glyphMap;
+interface StatCardProps {
   title: string;
   value: string;
 }
 
 export default function StatCard({
-  icon,
   title,
   value,
-}: Props) {
+}: StatCardProps) {
   return (
-    <AppCard style={styles.card}>
-      <Ionicons
-        name={icon}
-        size={28}
-        color={Colors.primary}
-      />
-
+    <View style={styles.card}>
       <AppText variant="caption" style={styles.title}>
         {title}
       </AppText>
 
-      <AppText variant="h2">
+      <AppText variant="h2" style={styles.value}>
         {value}
       </AppText>
-    </AppCard>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    minHeight: 120,
-    justifyContent: "space-between",
+    backgroundColor: Colors.surface,
+    borderRadius: 16,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    marginHorizontal: 4,
   },
 
   title: {
-    marginTop: Spacing.sm,
-    color: Colors.gray,
+    color: Colors.textLight,
+    marginBottom: 8,
+  },
+
+  value: {
+    color: Colors.primary,
   },
 });
