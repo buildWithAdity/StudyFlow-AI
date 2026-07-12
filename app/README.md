@@ -54,3 +54,4 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+StudyFlow AI is a premium AI-powered learning companion that helps students plan, study, revise, stay focused, and achieve their academic goals. It combines intelligent planning, AI-powered learning tools, flashcards, focus sessions, analytics, and cloud synchronization into one seamless mobile application.
